@@ -9,29 +9,24 @@ export const SideBar = ({ children }) => {
     <>
       <aside className="fixed top-0 z-10  ml-[-100%] flex h-screen w-full flex-col justify-between border-r bg-white px-6 pb-3 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[18%] ">
         <div>
-          <div className="-mx-6 px-6 py-4">
+          <div className="  py-2">
             <img className="rounded-xl h-14  m-auto" src={logo} alt=" logo" />
           </div>
 
-          <div className="mt-2 text-center flex">
-            <img
-              src={Avator}
-              alt="Avator"
-              className="m-auto h-10 w-10 rounded-full object-cover md:h-16 md:w-16"
-            />
-            <div className="text-start pl-2 m-auto ">
-            <h5 className="mt-4 hidden text-lg font-semibold text-gray-600 lg:block ">
+          <div className=" text-center flex">
+       
+            <div className="text-start m-auto ">
+            <h5 className=" hidden text-lg font-semibold text-gray-600 lg:block ">
               Suraj Lal Mehta
             </h5>
-            <span className="hidden text-gray-400 lg:block">Admin</span>
+            <span className="hidden text-sm text-gray-400 lg:block">Admin</span>
             </div>
           </div>
 
           <ul className="mt-8 space-y-2 tracking-wide">
-            <li>
-              <a
-                href="#"
-                aria-label="dashboard"
+            {/* <li>
+              <Link
+              to="/dashboard"
                 className="relative flex items-center space-x-4 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-400 px-4 py-3 text-white"
               >
                 <svg className="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
@@ -49,7 +44,30 @@ export const SideBar = ({ children }) => {
                   ></path>
                 </svg>
                 <span className="-mr-1 font-medium">Dashboard</span>
-              </a>
+              </Link>
+            </li> */}
+            <li>
+              <Link
+       
+                className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
+                to="/dashboard"
+              >
+            <svg className="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M6 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8ZM6 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1Z"
+                    className=" fill-current text-cyan-400"
+                  ></path>
+                  <path
+                    d="M13 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V8Z"
+                    className="fill-current text-cyan-200 group-hover:text-cyan-300"
+                  ></path>
+                  <path
+                    d="M13 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-1Z"
+                    className="fill-current group-hover:text-sky-300"
+                  ></path>
+                </svg>
+                <span className="group-hover:text-gray-700 ">Dashboard</span>
+              </Link>
             </li>
             <li>
               <Link
@@ -64,11 +82,36 @@ export const SideBar = ({ children }) => {
               </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+              to="/dashboard/leave-management"
+                className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
+              >     <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                className="fill-current text-gray-600 group-hover:text-cyan-600 "
+                fillRule="evenodd"
+                d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+                clipRule="evenodd"
+              />
+              <path
+                className="fill-current text-gray-300 group-hover:text-cyan-300"
+                d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"
+              />
+            </svg>
+                
+                <span className="group-hover:text-gray-700 ">Leave Management</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                  to="/dashboard/employee-activity"
                 className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
               >
-                <svg
+              <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
                   viewBox="0 0 20 20"
@@ -85,37 +128,12 @@ export const SideBar = ({ children }) => {
                     d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"
                   />
                 </svg>
-                <span className="group-hover:text-gray-700 ">User Management</span>
-              </a>
+                <span className="group-hover:text-gray-700 ">Employee Activity</span>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    className="fill-current text-gray-600 group-hover:text-cyan-600 "
-                    fillRule="evenodd"
-                    d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    className="fill-current text-gray-300 group-hover:text-cyan-300"
-                    d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"
-                  />
-                </svg>
-                <span className="group-hover:text-gray-700 ">Reports</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
+              <Link
+             to="/dashboard"
                 className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
               >
                 <svg
@@ -133,12 +151,12 @@ export const SideBar = ({ children }) => {
                     d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"
                   />
                 </svg>
-                <span className="group-hover:text-gray-700 ">Other data</span>
-              </a>
+                <span className="group-hover:text-gray-700 ">Emp. Attendence</span>
+              </Link>
             </li>
             <li>
               <a
-                href="#"
+               to="/dashboard"
                 className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
               >
                 <svg
@@ -158,7 +176,7 @@ export const SideBar = ({ children }) => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="group-hover:text-gray-700 ">Finance</span>
+                <span className="group-hover:text-gray-700 ">Salary Tracking</span>
               </a>
             </li>
           </ul>

@@ -6,19 +6,24 @@ import {  useSelector} from "react-redux"
 import { AddNewEmployee } from "./components/user_management/components/AddNewEmployee"
 
 import { UserManagement } from "./components/user_management/UserManagement";
-
-export const Dashboard = () => {
-  const appState = useSelector((state) =>state?.app)
+import { DashboardHome } from "./components/dashboard_home/DashboardHome";
+import { LeaveManagement } from "./components/leave_management/LeaveManagement";
+import{ EmployeeActivity } from "./components/employee_activity/EmployeeActivity";
+ export const Dashboard = () => {
+  const State = useSelector((state) =>state)
+  console.log(State)
   return (
     <>   
     <div className={""}>
       <SideBar  >
         <Routes>
           {/* Update the parent route path to include a trailing "*" */}
-          <Route path="/" element={<h1>Dashboard</h1>} />
+          <Route path="/" element={<DashboardHome/>} />
           {/* Update child route paths accordingly */}
           <Route path="/user-management" element={<UserManagement/>} />
           <Route path="/user-management/add-new-employee" element={<AddNewEmployee/>} />
+          <Route path="/leave-management" element={<LeaveManagement/>} />
+          <Route path="/employee-activity" element={<EmployeeActivity/>} />
         </Routes>
       </SideBar>
       </div>

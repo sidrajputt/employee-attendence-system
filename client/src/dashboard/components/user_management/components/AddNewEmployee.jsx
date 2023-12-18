@@ -195,10 +195,8 @@ export const AddNewEmployee = () => {
                   <option value="">Select Marital status</option>
                   <option value="married">Married</option>
                   <option value="unmarried">UnMarried</option>
-        
                 </select>
 
-        
                 {errors.fullName && touched.fullName ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
                     {errors.fullName}
@@ -210,10 +208,7 @@ export const AddNewEmployee = () => {
             <hr />
             <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm text-gray-800 "
-                >
+                <label htmlFor="phone" className="block text-sm text-gray-800 ">
                   Phone Number
                 </label>
                 <input
@@ -234,10 +229,7 @@ export const AddNewEmployee = () => {
               </div>
 
               <div className="">
-                <label
-                  htmlFor="email"
-                  className="block text-sm text-gray-800 "
-                >
+                <label htmlFor="email" className="block text-sm text-gray-800 ">
                   Email Address
                 </label>
                 <input
@@ -473,23 +465,23 @@ export const AddNewEmployee = () => {
               </div>
               <div>
                 <label
-                  htmlFor="fullname"
+                  htmlFor="healthCondition"
                   className="block text-sm text-gray-800 "
                 >
                   Allergies or Health Conditions
                 </label>
                 <input
-                  value={values.fullName}
+                  value={values.healthCondition}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="text"
-                  name="fullName"
+                  name="healthCondition"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder=""
                 />
-                {errors.fullName && touched.fullName ? (
+                {errors.healthCondition && touched.healthCondition ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
-                    {errors.fullName}
+                    {errors.healthCondition}
                   </p>
                 ) : null}
               </div>
@@ -505,77 +497,112 @@ export const AddNewEmployee = () => {
             </div>
           </form>
         </div>
-        <div className="w-full max-w-md p-5">
-          <div class="flex max-w-md overflow-hidden bg-white rounded-lg shadow-lg">
-            <div class=" p-4 bg-lightColor">
-              <h1 class="text-xl  text-center py-5 mb-5 font-bold text-gray-900">
+        <div className="w-full hidden md:flex max-w-md p-5">
+          <div class="flex max-w-md fixed w-full pr-10  overflow-hidden bg-white rounded-lg shadow-lg">
+            <div class=" p-4 w-full  bg-lightColor">
+              <h1 class="text-lg  text-center p-2 mb-5 font-bold text-gray-900">
                 Employee Detail
               </h1>
-           
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-              Name: <span className="pl-2 text-black">  {values.fullName}  </span>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+              Employee ID:{" "}
+                <span className="pl-2 text-black"> {values.employeeId} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-              Date of Birth: <span className="pl-2 text-black">  {values.dateofbirth}  </span>
-              </p>
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
-              </p>
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-              Nationality: <span className="pl-2 text-black">  {values.nationality}  </span>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Name:{" "}
+                <span className="pl-2 text-black"> {values.fullName} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-              Marital Status: <span className="pl-2 text-black">  {values.maritalStatus}  </span>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Date of Birth:{" "}
+                <span className="pl-2 text-black"> {values.dateofbirth} </span>
+              </p>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Gender:{" "}
+                <span className="pl-2 text-black"> {values.gender} </span>
+              </p>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Nationality:{" "}
+                <span className="pl-2 text-black"> {values.nationality} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-              Phone Number: <span className="pl-2 text-black">  {values.phone}  </span>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Marital Status:{" "}
+                <span className="pl-2 text-black">
+                  {" "}
+                  {values.maritalStatus}{" "}
+                </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Phone Number:{" "}
+                <span className="pl-2 text-black"> {values.phone} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Email: <span className="pl-2 text-black"> {values.email} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Address:{" "}
+                <span className="pl-2 text-black"> {values.address} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Designation:{" "}
+                <span className="pl-2 text-black"> {values.designation} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Department:{" "}
+                <span className="pl-2 text-black"> {values.depatment} </span>
               </p>
 
-              <p class="text-sm capitalize mt-2 font-semibold text-gray-600">
-                Gender: <span className="pl-2 text-black">  {values.gender}  </span>
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Employment Type:{" "}
+                <span className="pl-2 text-black">
+                  {" "}
+                  {values.employmentType}{" "}
+                </span>
               </p>
 
-
-
-
-
-
-
-
-              <p class="mt-2 text-sm text-gray-600">
-                You can&#x27;t buy your future, but you can do it. Money is
-                nothing, you&#x27;r everything.
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Salary{" "}
+                <span className="pl-2 text-black"> {values.salary} </span>
               </p>
 
-              <div class="flex justify-between mt-3 item-center">
-                <h1 class="text-xl font-bold text-gray-700">$220</h1>
-                <button class="px-3 py-2 text-xs font-bold text-white uppercase bg-gray-800 rounded">
-                  Add to Card
-                </button>
-              </div>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Work Location:{" "}
+                <span className="pl-2 text-black"> {values.workLocation} </span>
+              </p>
+
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                Emergency Contact Person:{" "}
+                <span className="pl-2 text-black">
+                  {" "}
+                  {values.emg_contact_person}{" "}
+                </span>
+              </p>
+              <p class="text-xs   mt-2 font-semibold text-gray-600">
+                Emergency Contact Number:{" "}
+                <span className="pl-2 text-black">
+                  {" "}
+                  {values.emg_contact_person}{" "}
+                </span>
+              </p>
+
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Blood Group+{" "}
+                <span className="pl-2 text-black"> {values.bloodGroup} </span>
+              </p>
+
+              <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+                Allergies or Health Conditions
+                <span className="pl-2 text-black">
+                  {" "}
+                  {values.healthCondition}{" "}
+                </span>
+              </p>
             </div>
           </div>
         </div>
