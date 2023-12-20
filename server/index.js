@@ -10,6 +10,7 @@ const connectdb = require('./database/database');
 app.use(cookieParser())
 
 //middleware
+app.use(morgan("dev"))
 app.use(express.json());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -19,17 +20,14 @@ app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 	res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (e.g., cookies) to be included in the request
 	next();
-  });
-  
-  const DemoRoutes = require("./routes/demo");
-
-  /** HTTP GET Request */
-app.get("/", (req, res) => {
-	res.send("Welcome to Smart Employee Attendence Management System.");
 });
 
-//api routes
-app.use("/api/v1/demo", DemoRoutes); //api routes for demo routes
+const adminRoutes = require("./routes/admin")
+const employeeRoutes = require("./routes/employee")
+
+app.use("/api/admin", adminRoutes)
+app.use("/api/employee", employeeRoutes)
+
 const notfoundmiddleware = (req, res, next) => {
 	res.status(404).json({
 		sucess: false,
