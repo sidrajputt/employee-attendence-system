@@ -4,6 +4,7 @@ import authSlice from '../slice/authSlice';
 import storage from 'redux-persist/lib/storage';
 
 import storeSlice from '../slice/storeSlice';
+import employeeSlice from '../slice/employeeSlice';
 import appSlice from '../slice/appSlice';
 import {
   persistReducer,
@@ -27,8 +28,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   auth: authSlice,
-
-  store: storeSlice,
+  employee: employeeSlice,
 app:appSlice
 
 })

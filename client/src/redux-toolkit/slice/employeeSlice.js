@@ -4,45 +4,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  user: null,
+  data: null,
   loading: false,
-  isLoggedIn: false,
   error: null,
 };
 
-// export const registerUser = createAsyncThunk(
-//   "auth/registerUser",
-//   async (userData) => {
-//     try {
-//       const response = await axios.post(
-//         `${process.env.REACT_APP_BASE_URL}/api/v1/auth/register`,
-
-//         userData,
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           withCredentials: true,
-//           Credential: "include",
-//         }
-//       );
-//       // console.log(userData);
-//       // console.log(response);
-//       return response.data;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-// );
-
-export const updateUserData = createAsyncThunk(
-  "auth/updateUserData",
-  async (updatedUserData) => {
+export const createNewEmployee = createAsyncThunk(
+  "employee/createNewEmployee",
+  async (employeeData) => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/v1/user/update`,
+        `http://localhost:8000/api/employee/createEmployee`,
 
-        updatedUserData,
+        employeeData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -51,7 +25,32 @@ export const updateUserData = createAsyncThunk(
           Credential: "include",
         }
       );
-      // console.log(updatedUserData);
+      // console.log(EmployeeData);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const updateEmployeeData = createAsyncThunk(
+  "employee/updateEmployeeData",
+  async (updatedEmployeeData) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/Employee/update`,
+
+        updatedEmployeeData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          Credential: "include",
+        }
+      );
+      // console.log(updatedEmployeeData);
       // console.log(response);
       return response.data;
     } catch (error) {
@@ -60,12 +59,12 @@ export const updateUserData = createAsyncThunk(
   }
 );
 
-export const fetchUserData = createAsyncThunk(
-  "auth/fetchUserData",
+export const fetchEmployeeData = createAsyncThunk(
+  "employee/fetchEmployeeData",
   async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/v1/user/userdetail`,
+        `http://localhost:8000/api/employee/allEmployeeData`,
 
         {
           withCredentials: true,
@@ -80,13 +79,13 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (userData) => {
+export const loginEmployee = createAsyncThunk(
+  "employee/loginEmployee",
+  async (EmployeeData) => {
     try {
       const response = await axios.post(
         `http://localhost:8000/api/admin/login`,
-        userData,
+        EmployeeData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -95,7 +94,7 @@ export const loginUser = createAsyncThunk(
           Credential: "include",
         }
       );
-      console.log(userData);
+      console.log(EmployeeData);
       console.log(response);
       return response.data;
     } catch (error) {
@@ -104,7 +103,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 export const logout = createAsyncThunk(
-  "auth/logout",
+  "employee/logout",
   async () => {
     try {
       const response = await axios.post(
@@ -126,64 +125,63 @@ export const logout = createAsyncThunk(
     }
   }
 );
-const authSlice = createSlice({
-  name: "auth",
+const employeeSlice = createSlice({
+  name: "employee",
   initialState,
   reducers: {
-    resetAuthState: (state) => {
-      state.user = null;
+    resetemployeeState: (state) => {
+      state.data = null;
       state.loading = false;
       state.error = null;
-      state.isLoggedIn = false;
+
     },
   },
   extraReducers: (builder) => {
     builder
-  .addCase(loginUser.pending, (state) => {
+  .addCase(loginEmployee.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(loginEmployee.fulfilled, (state, action) => {
+        state.data = action.payload;
         state.loading = false;
         state.error = null;
-        state.isLoggedIn = true;
+
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.user = null;
-        state.loading = false;
-        state.isLoggedIn = false;
-        state.error = action.error.message;
-      })
-      .addCase(updateUserData.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateUserData.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(updateUserData.rejected, (state, action) => {
-        state.user = null;
+      .addCase(loginEmployee.rejected, (state, action) => {
+        state.data = null;
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(fetchUserData.pending, (state) => {
+      .addCase(updateEmployeeData.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(updateEmployeeData.fulfilled, (state, action) => {
+        state.data = action.payload;
         state.loading = false;
         state.error = null;
       })
-      .addCase(fetchUserData.rejected, (state, action) => {
+      .addCase(updateEmployeeData.rejected, (state, action) => {
+        state.data = null;
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchEmployeeData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchEmployeeData.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchEmployeeData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
   },
 });
 
-export const { resetAuthState } = authSlice.actions;
-export default authSlice.reducer;
+export const { resetemployeeState } = employeeSlice.actions;
+export default employeeSlice.reducer;

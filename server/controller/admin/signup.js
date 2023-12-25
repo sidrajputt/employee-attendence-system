@@ -8,7 +8,7 @@ const signup = async (req, res) => {
         const { firstName,
             lastName,
             email,
-            profileUrl,
+
             phone,
             password } = req.body
 
@@ -19,7 +19,7 @@ const signup = async (req, res) => {
             firstName,
             lastName,
             email,
-            profileUrl,
+       
             phone,
             password: hashedPassword
         })

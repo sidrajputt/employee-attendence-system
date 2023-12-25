@@ -1,10 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+
+import React,{ useEffect, useState} from 'react';
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import Avator from "../../assets/Avator.png";
-import { Link } from "react-router-dom";
+
+import { useSelector, useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { resetAuthState , logout} from "../../redux-toolkit/slice/authSlice";
+
 
 export const SideBar = ({ children }) => {
+  const dispatch = useDispatch();
+const navigate = useNavigate();
+const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+const admin = useSelector((state) => state?.auth?.user?.admin)
+const state = useSelector((state) => state)
+console.log(state);
+
+useEffect(()=>{
+  if(!isLoggedIn){
+    navigate("/login");
+  }
+},[navigate, isLoggedIn])
+
+  const logoutFunction = async()=>{
+dispatch(resetAuthState());
+dispatch(logout());
+navigate("/");
+
+  }
   return (
     <>
       <aside className="fixed top-0 z-10  ml-[-100%] flex h-screen w-full flex-col justify-between border-r bg-white px-6 pb-3 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[18%] ">
@@ -17,7 +42,7 @@ export const SideBar = ({ children }) => {
        
             <div className="text-start m-auto ">
             <h5 className=" hidden text-lg font-semibold text-gray-600 lg:block ">
-              Suraj Lal Mehta
+              {admin?.firstName}   {" "}  {admin?.lastName}
             </h5>
             <span className="hidden text-sm text-gray-400 lg:block">Admin</span>
             </div>
@@ -182,8 +207,8 @@ export const SideBar = ({ children }) => {
           </ul>
         </div>
 
-        <div className="-mx-6 flex items-center justify-between border-t px-6 pt-4 ">
-          <button className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 ">
+        <div className="-mx-6 flex items-center justify-between border-t px-6 pt-4  ">
+          <button onClick={()=>logoutFunction()} className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 hover:text-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -198,7 +223,7 @@ export const SideBar = ({ children }) => {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <span className="group-hover:text-gray-700 ">Logout</span>
+            <span className=" hover:text-primary ">Logout</span>
           </button>
         </div>
       </aside>

@@ -1,7 +1,41 @@
-import React from 'react';
-import { Link } from "react-router-dom"
-import loginImg from "../../assets/login.png"
+import React,{ useEffect, useState} from 'react';
+import { Link } from "react-router-dom";
+import loginImg from "../../assets/login.png";
+import { useSelector, useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../redux-toolkit/slice/authSlice";
+
 export const LoginWithPhone = () => {
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
+const state = useSelector((state) => state)
+console.log(state);
+const [phone, setPhone ] = useState("");
+const [password, setPassword]=useState("");
+
+useEffect(()=>{
+  if(isLoggedIn){
+    navigate('/dashboard');
+  }
+},[isLoggedIn,navigate])
+
+const userdata = {
+  phone: phone,
+  password: password
+}
+const clearState = () =>{
+setPhone("");
+setPassword("");
+}
+const handleSubmit= (e) => {
+  e.preventDefault();
+  console.log("onSumbit:" ,userdata)
+  dispatch(loginUser(userdata))
+  clearState();
+  navigate('/dashboard');
+};
+
   return (
     <>
        <div className="flex items-center min-h-screen p-6 bg-gray-50 ">
@@ -18,7 +52,7 @@ export const LoginWithPhone = () => {
             />
    
           </div>
-          <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+          <form  onSubmit={handleSubmit} className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <h1
                 className="mb-4 text-xl font-semibold text-gray-700 "
@@ -26,29 +60,36 @@ export const LoginWithPhone = () => {
                 Login
               </h1>
               <label className="block text-sm">
-                <span className="text-gray-700 ">Email</span>
+                <span className="text-gray-700 ">Phone</span>
                 <input
                   className="block w-full mt-1 text-sm border-black p-2 border rounded-lg shadow-outline-gray-400 "
-                  placeholder="suraj@gmail.com"
+                  placeholder="82927854**"
+                  onChange={(e)=>setPhone(e.target.value)}
+                  type="number"
+                  required
                 />
               </label>
               <label className="block mt-4 text-sm">
                 <span className="text-gray-700 ">Password</span>
                 <input
                   className="block w-full mt-1 text-sm border-black p-2 border rounded-lg shadow-outline-gray-400 "
-                  placeholder="***************"
+                  placeholder="************"
+                  onChange={(e)=>setPassword(e.target.value)}
                   type="password"
+                  required
+
                 />
               </label>
 
            
-              <Link
-              to="/dashboard"
+              <button
+                type="submit"
+
                 className="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
         
               >
                 Log in
-              </Link>
+              </button>
 
               <hr className="my-8" />
 
@@ -71,7 +112,7 @@ export const LoginWithPhone = () => {
               </p>
              
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

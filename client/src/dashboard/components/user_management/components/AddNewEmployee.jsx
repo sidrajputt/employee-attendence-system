@@ -3,17 +3,21 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
+import { createNewEmployee } from "../../../../redux-toolkit/slice/employeeSlice"
 
 export const AddNewEmployee = () => {
   const data = useSelector((state) => state);
   console.log(data);
-
+  const dispatch = useDispatch();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
         employeeId: "",
-        fullName: "",
+        firstName: "",
+        lastName: "",
+        password: "",
         dateofbirth: "",
+        role:"employee",
         gender: "",
         nationality: "",
         maritalStatus: "",
@@ -31,13 +35,16 @@ export const AddNewEmployee = () => {
         healthCondition: "",
       },
 
-      onSubmit: async (values, action) => {
+      onSubmit: async (values, { resetForm },action) => {
+
         console.log("onSubmit", values);
+      dispatch(createNewEmployee(values))
+      resetForm();
       },
     });
   return (
     <>
-      <div className="flex">
+      <div className="flex py-5">
         <div
           className="w-full p-6 max-w-3xl bg-gray-50  mx-auto 
       rounded-lg shadow-md "
@@ -55,7 +62,7 @@ export const AddNewEmployee = () => {
               <XCircleIcon />
             </button> */}
           </div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <h3 className="mt-8 mb-2 font-semibold">Basic Information</h3>
             <hr />
             <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -84,27 +91,70 @@ export const AddNewEmployee = () => {
 
               <div>
                 <label
-                  htmlFor="fullname"
+                  htmlFor="Password"
                   className="block text-sm text-gray-800 "
                 >
-                  Full Name
+                  Password
                 </label>
                 <input
-                  value={values.fullName}
+                  value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="text"
-                  name="fullName"
+                  name="password"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder=""
                 />
-                {errors.fullName && touched.fullName ? (
+                {errors.password && touched.password ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
-                    {errors.fullName}
+                    {errors.password}
                   </p>
                 ) : null}
               </div>
-
+              <div>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm text-gray-800 "
+                >
+                  First Name
+                </label>
+                <input
+                  value={values.firstName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="text"
+                  name="firstName"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  placeholder=""
+                />
+                {errors.firstName && touched.firstName ? (
+                  <p className=" mt-1 px-5 text-sm text-red-600">
+                    {errors.firstName}
+                  </p>
+                ) : null}
+              </div>
+              <div>
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm text-gray-800 "
+                >
+                  Last Name
+                </label>
+                <input
+                  value={values.lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="text"
+                  name="lastName"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  placeholder=""
+                />
+                {errors.lastName && touched.lastName ? (
+                  <p className=" mt-1 px-5 text-sm text-red-600">
+                    {errors.lastName}
+                  </p>
+                ) : null}
+              </div>
               <div>
                 <label
                   htmlFor="dateofbirth"
@@ -197,9 +247,9 @@ export const AddNewEmployee = () => {
                   <option value="unmarried">UnMarried</option>
                 </select>
 
-                {errors.fullName && touched.fullName ? (
+                {errors.maritalStatus && touched.maritalStatus ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
-                    {errors.fullName}
+                    {errors.maritalStatus}
                   </p>
                 ) : null}
               </div>
@@ -324,15 +374,20 @@ export const AddNewEmployee = () => {
                 >
                   Employment Type
                 </label>
-                <input
+                <select
+                  id="employmentType"
                   value={values.employmentType}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  type="text"
                   name="employmentType"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  placeholder=""
-                />
+                >
+                  <option value="">Select Employment Type</option>
+                  <option value="onsite">OnSite</option>
+                  <option value="remote">Remote</option>
+                  <option value="hybrid">Hybrid</option>
+                </select>
+
                 {errors.employmentType && touched.employmentType ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
                     {errors.employmentType}
@@ -377,7 +432,7 @@ export const AddNewEmployee = () => {
                   value={values.salary}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  type="text"
+                  type="number"
                   name="salary"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder=""
@@ -426,7 +481,7 @@ export const AddNewEmployee = () => {
                   value={values.emg_contact_number}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  type="text"
+                  type="number"
                   name="emg_contact_number"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder=""
@@ -448,15 +503,26 @@ export const AddNewEmployee = () => {
                 >
                   Blood Group+
                 </label>
-                <input
+           
+                  <select
+                  id="bloodGroup"
                   value={values.bloodGroup}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  type="text"
                   name="bloodGroup"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  placeholder=""
-                />
+                >
+                  <option value="">Select Blood Group</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </select>
+
                 {errors.bloodGroup && touched.bloodGroup ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
                     {errors.bloodGroup}
@@ -509,8 +575,16 @@ export const AddNewEmployee = () => {
               </p>
 
               <p class="text-xs  mt-2 font-semibold text-gray-600">
-                Name:{" "}
-                <span className="pl-2 text-black"> {values.fullName} </span>
+                Password:{" "}
+                <span className="pl-2 text-black"> {values.password} </span>
+              </p>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                FirstName:{" "}
+                <span className="pl-2 text-black"> {values.firstName} </span>
+              </p>
+              <p class="text-xs  mt-2 font-semibold text-gray-600">
+                LastName:{" "}
+                <span className="pl-2 text-black"> {values.lastName} </span>
               </p>
 
               <p class="text-xs capitalize mt-2 font-semibold text-gray-600">

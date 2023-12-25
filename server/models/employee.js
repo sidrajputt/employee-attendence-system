@@ -1,36 +1,80 @@
 const mongoose = require('mongoose');
 
 const EmployeeSchema = new mongoose.Schema({
-  firstName: {
+  employeeId:  {
     type: String,
     required: true,
   },
-  lastName: {
+  firstName:  {
     type: String,
     required: true,
   },
-  email: {
+  lastName:  {
     type: String,
     required: true,
-    unique: true,
   },
-  profileUrl: {
+  password:  {
     type: String,
-    default: "https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?w=360&t=st=1702966423~exp=1702967023~hmac=f58ac7803833d2b7d5497f09ff4977e0f4c13c1128b138e7b0effb57c9133a77"
+    required: true,
   },
-  phone: {
+  dateofbirth:  {
+    type: Date,
+  },
+  role: {
+    type: String,
+    default: "employee",
+  },
+  gender:  {
+    type: String,
+  },
+  nationality: {
+    type: String,
+  },
+  maritalStatus:  {
+    type: String,
+  },
+  phone:  {
     type: Number,
     required: true,
     unique: true,
   },
-  password: {
+  email:  {
     type: String,
     required: true,
+    unique: true,
   },
-  role: {
+  address:  {
     type: String,
+  },
+  designation:  {
+    type: String,
+  },
+  department: {
+    type: String,
+  },
+  employmentType:  {
+    type: String,
+  },
+  workLocation: {
+    type: String,
+  },
+  salary:  {
+    type: Number,
     required: true,
   },
+  emg_contact_person:  {
+    type: String,
+  },
+  emg_contact_number: {
+    type: Number,
+  },
+  bloodGroup:  {
+    type: String,
+  },
+  healthCondition:  {
+    type: String,
+  },
+
   createdAt: {
     type: Number,
     default: Date.now,
