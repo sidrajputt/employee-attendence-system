@@ -7,6 +7,7 @@ const { updateAdmin } = require('../controller/admin/update')
 const { forgotPassword } = require('../controller/admin/forgotPassword')
 const { verifyPCC } = require('../controller/admin/verifyPCC')
 const { changePassword } = require('../controller/admin/changePassword')
+const { getAdmins } = require('../controller/admin/getAdmins')
 
 router.route('/signup').post(signup)
 router.route('/login').post(login)
@@ -15,5 +16,6 @@ router.route('/update').patch(updateAdmin)
 router.route('/forgotPassword').post(forgotPassword)
 router.route('/verifypasswordchangecode').post(verifyPCC)
 router.route('/changePassword').post(changePassword)
+router.route('/getAdmins').get(getAdmins)
 
 module.exports = router

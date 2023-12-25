@@ -24,9 +24,11 @@ app.use((req, res, next) => {
 
 const adminRoutes = require("./routes/admin")
 const employeeRoutes = require("./routes/employee")
+const otherRoutes = require("./routes/others")
 
 app.use("/api/admin", adminRoutes)
-app.use("/api/employee", employeeRoutes)
+app.use("/api/employee", employeeRoutes) 
+app.use("/api", otherRoutes)
 
 const notfoundmiddleware = (req, res, next) => {
 	res.status(404).json({
