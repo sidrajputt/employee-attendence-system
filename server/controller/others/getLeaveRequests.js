@@ -23,7 +23,13 @@ const getLeaveRequests = async (req, res) => {
     const limit = pageSize ? Number(pageSize) : defaultPageSize
 
     try {
-        const result = await Leave.find(filter).limit(limit).skip((pageNumber || pageNumber > 0 ? (pageNumber - 1) : 0) * pageSize)
+        const result = await Leave.find(filter).limit(limit).skip((pageNumber || pageNumber > 0 ? (pageNumber - 1) : 0) * pageSize).populate({
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'employeeId firstName lastName'
+        })
+        .exec();
+
 
         res.status(200).json({
             success: true,

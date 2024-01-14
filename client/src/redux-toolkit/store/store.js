@@ -1,11 +1,12 @@
 // store.js
-import { configureStore } from '@reduxjs/toolkit';
-import authSlice from '../slice/authSlice';
-import storage from 'redux-persist/lib/storage';
+import { configureStore } from "@reduxjs/toolkit";
+import authSlice from "../slice/authSlice";
+import storage from "redux-persist/lib/storage";
 
-import storeSlice from '../slice/storeSlice';
-import employeeSlice from '../slice/employeeSlice';
-import appSlice from '../slice/appSlice';
+import storeSlice from "../slice/storeSlice";
+import employeeSlice from "../slice/employeeSlice";
+import appSlice from "../slice/appSlice";
+import leaveSlice from "../slice/leaveSlice";
 import {
   persistReducer,
   FLUSH,
@@ -14,24 +15,23 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
-import { combineReducers } from '@reduxjs/toolkit';
-import sessionExpiryMiddleware from "../middleware/sessionExpiryMiddleware"
+} from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
+import sessionExpiryMiddleware from "../middleware/sessionExpiryMiddleware";
 // import facebook reducers
 
-
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage,
-}
+};
 
 const reducer = combineReducers({
   auth: authSlice,
   employee: employeeSlice,
-app:appSlice
-
-})
+  app: appSlice,
+  leave: leaveSlice,
+});
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
@@ -43,4 +43,4 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(sessionExpiryMiddleware),
-})
+});

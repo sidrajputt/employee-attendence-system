@@ -28,7 +28,9 @@ const ActivitySchema = new mongoose.Schema({
         required: true,
         default: Date.now(),
     },
-});
+}, {
+    timestamps: true, // This will add created_at and updated_at fields
+  });
 
 const Activity = mongoose.model('Activity', ActivitySchema);
 

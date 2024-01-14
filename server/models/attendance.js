@@ -23,7 +23,9 @@ const AttendanceSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }
-});
+}, {
+    timestamps: true, // This will add created_at and updated_at fields
+  });
 
 const Attendance = mongoose.model('Attendance', AttendanceSchema);
 

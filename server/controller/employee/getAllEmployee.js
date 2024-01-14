@@ -6,7 +6,7 @@ const getAllEmployee = async (req, res) => {
 
         let AllEmployeeData = await Employee.find({ })
 
-        console.log(AllEmployeeData)
+        // console.log(AllEmployeeData)
 
         return res.status(200).json({
             success: true,

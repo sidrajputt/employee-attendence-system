@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { resetAuthState , logout} from "../../redux-toolkit/slice/authSlice";
 
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const SideBar = ({ children }) => {
   const dispatch = useDispatch();
 const navigate = useNavigate();
@@ -47,7 +50,7 @@ navigate("/");
             <span className="hidden text-sm text-gray-400 lg:block">Admin</span>
             </div>
           </div>
-
+          <ToastContainer />
           <ul className="mt-8 space-y-2 tracking-wide">
             {/* <li>
               <Link

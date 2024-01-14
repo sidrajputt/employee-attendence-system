@@ -28,7 +28,9 @@ const AdminSchema = new mongoose.Schema({
     },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Number
-});
+}, {
+    timestamps: true, // This will add created_at and updated_at fields
+  });
 
 const Admin = mongoose.model('Admin', AdminSchema);
 

@@ -16,7 +16,7 @@ const LeaveSchema = new mongoose.Schema({
         required: true
     },
     requestedOn: {
-        type: Number,
+        type: Date,
         required: true,
         default: Date.now()
     },
@@ -25,15 +25,16 @@ const LeaveSchema = new mongoose.Schema({
         required: true
     },
     startDate: {
-        type: Number,
+        type: Date,
         required: true
     },
     endDate: {
-        type: Number,
+        type: Date,
         required: true
     }
-});
-
+}, {
+    timestamps: true, // This will add created_at and updated_at fields
+  });
 const Leave = mongoose.model('Leave', LeaveSchema);
 
 module.exports = Leave;

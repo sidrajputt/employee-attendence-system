@@ -25,7 +25,7 @@ export const AddNewEmployee = () => {
         email: "",
         address: "",
         designation: "",
-        depatment: "",
+        department: "",
         employmentType: "",
         workLocation: "",
         salary: "",
@@ -347,21 +347,21 @@ export const AddNewEmployee = () => {
               </div>
               <div className="">
                 <label
-                  htmlFor="depatment"
+                  htmlFor="department"
                   className="block text-sm text-gray-800 "
                 >
                   Department
                 </label>
                 <input
-                  value={values.depatment}
+                  value={values.department}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="text"
-                  name="depatment"
+                  name="department"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder=""
                 />
-                {errors.depatment && touched.depatment ? (
+                {errors.department && touched.department ? (
                   <p className=" mt-1 px-5 text-sm text-red-600">
                     {errors.depatment}
                   </p>

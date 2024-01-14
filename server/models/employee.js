@@ -75,16 +75,10 @@ const EmployeeSchema = new mongoose.Schema({
     type: String,
   },
 
-  createdAt: {
-    type: Number,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Number,
-    default: Date.now,
-  },
-});
 
+}, {
+  timestamps: true, // This will add created_at and updated_at fields
+});
 const Employee = mongoose.model('Employee', EmployeeSchema);
 
 module.exports = Employee;

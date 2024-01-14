@@ -10,6 +10,6 @@ router.route('/createEmployee').post(createEmployee)
 router.route('/updateEmployee').patch(updateEmployee)
 router.route('/employeeLogin').post(employeeLogin)
 router.route('/employeeLogout').post(employeeLogout)
-router.route('/deleteEmployee').get(deleteEmployee)
+router.route('/deleteEmployee').post(deleteEmployee)
 router.route('/allEmployeeData').get(getAllEmployee)
 module.exports = router

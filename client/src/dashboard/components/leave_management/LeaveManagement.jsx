@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchleaveData, updateleaveData } from "../../../redux-toolkit/slice/leaveSlice";
+import { formattedDate, formattedDateOnly } from "../../../utils/formatDate"
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+
 export const LeaveManagement = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchleaveData());
+  }, [dispatch]);
+
+  const leaveData = useSelector((state) => state?.leave?.data?.data);
+  console.log(leaveData);
+
+
   return (
     <>
       <div className="px-2 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-6 lg:py-6">
@@ -60,72 +76,58 @@ export const LeaveManagement = () => {
           </div>
         </div>
       </div>
+      {/* <ToastContainer /> */}
       <section className="container px-2 mx-auto ">
         <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 ">
-            All Employees Request
+          <h2 className="text-lg px-5 font-medium text-gray-800 ">
+            All Employees Leave Request
           </h2>
         </div>
 
         <div className="flex flex-col mt-6">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div className="overflow-x-auto ">
+            <div className="inline-block min-w-full py-2 align-middle px-2">
               <div className="overflow-hidden border border-gray-200  md:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200 ">
-                  <thead className="bg-gray-50 ">
-                    <tr>
-               
-                      <th
-                        scope="col"
-                        className="px-1 py-3.5 text-sm font-normal text-center w-24 text-gray-500 "
-                      >
-                       Employee Id
-                      </th>
-                
-                      <th
-                        scope="col"
-                        className="px-1 py-3.5 text-sm font-normal text-center w-40  text-gray-500 "
-                      >
-                       Name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-1 py-3.5 text-sm font-normal text-center w-14  text-gray-500 "
-                      >
-                        No of Days
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-1 py-3.5 text-sm font-normal text-center w-32  text-gray-500 "
-                      >
-                        Form Date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3.5 text-sm font-normal text-center w-32  text-gray-500 "
-                      >
-                        To Date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3.5 text-sm font-normal text-left  text-gray-500 "
-                      >
-                        Reason
-                      </th>
+                <div className="min-w-full divide-y divide-gray-200 ">
+                  <div className="bg-gray-50 ">
+                    <div className="flex justify-between">
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-20 text-black ">
+                        Employee Id
+                      </div>
 
-                      <th
-                        scope="col"
-                        className="px-2 py-3.5 text-sm font-normal text-center  w-32 text-gray-500 "
-                      >
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-40  text-black ">
+                        Name
+                      </div>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-28  text-black ">
+                        Requested On
+                      </div>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-16  text-black ">
+                        No of Days
+                      </div>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-24  text-black ">
+                        Form Date
+                      </div>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center w-24 text-black ">
+                        To Date
+                      </div>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center  w-52 text-black ">
+                        Reason
+                      </div>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center  w-20 text-black ">
+                        Status
+                      </div>
+
+                      <div className="px-2 py-3.5 text-sm font-normal text-center  w-28 text-black ">
                         Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200  ">
-                    {LeaveRequest()}
-                    {LeaveRequest()}
-                  </tbody>
-                </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-white divide-y divide-gray-200  ">
+                    {leaveData?.map((data) => (
+                      <div key={data?._id}>{LeaveRequest(data)}</div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -133,43 +135,58 @@ export const LeaveManagement = () => {
       </section>
     </>
   );
-  function LeaveRequest() {
+  function LeaveRequest(data) {
+
+    const updateLeaveRequest = (Leavedata) =>{
+      dispatch(updateleaveData(Leavedata)).then(()=>dispatch(fetchleaveData()))
+    
+  
+    }
     return (
-      <tr>
-        <td className="px-4 py-4 text-sm font-medium  text-gray-700 whitespace-nowrap">
-          <h2 className="text-sm font-semibold "> 1001</h2>
-        </td>
-        <td className="px-4 py-4 text-sm text-gray-500  text-left whitespace-nowrap">
-          Suraj Lal Mehta
-        </td>
-        <td className="px-2 py-4 text-sm text-gray-500  text-center whitespace-nowrap">
-          03
-        </td>
-        <td className="px-2 py-4 text-sm text-gray-500  text-center whitespace-nowrap">
-          01/02/1230
-        </td>
-        <td className="px-2 py-4 text-sm text-gray-500  whitespace-nowrap">
-          01/02/1230
-        </td>
+      <>
+            <div className="flex justify-between">
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-20 text-black ">
+                      {data?.employeeId?.employeeId}
+                      </div>
 
-        <td className="px-2 py-4 text-sm text-gray-500  whitespace-nowrap">
-        I have some import work
-        </td>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-40  text-black ">
+                      {data?.employeeId?.firstName} {data?.employeeId?.lastName}
+                      </div>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-28  text-black ">
+                    {formattedDate(data?.requestedOn)}
+                    {/* {data?.requestedOn} */}
+                      </div>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-16  text-black ">
+                      {data?.noOfDays}
+                      </div>
+                      <div className="px-1 py-3.5 text-sm font-normal text-center w-24  text-black ">
+                      {formattedDateOnly(data?.startDate)}
+                      </div>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center w-24 text-black ">
+                  {formattedDateOnly(data?.endDate)}
+                      </div>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center capitalize  w-52 text-black ">
+                      {data?.reason}
+                      </div>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center capitalize w-20 text-black ">
+                      {data?.status === "pending"? <span className="text-blue-600">Pending</span> :null} 
+                      {data?.status === "approved"? <span className="text-green-600">Approved</span> :null} 
+                      {data?.status === "rejected"? <span className="text-red-600">Rejected</span> :null} 
+                      </div>
 
-        <td className="px-2 py-4 text-sm whitespace-nowrap">
-          <div className="flex items-center gap-x-4">
-            {/* Delete  */}
-            <button className=" font-semibold text-blue-400 transition-colors duration-200   hover:text-green-500 focus:outline-none">
-           Accept
-            </button>
-         
-            {/* Edit */}
-            <button className="font-semibold text-red-400 transition-colors duration-200  hover:text-red-600 focus:outline-none">
-            Reject
-            </button>
-          </div>
-        </td>
-      </tr>
+                      <div className="px-2 py-3.5 text-sm font-normal text-center  w-28 text-black ">
+                      <div className="flex justify-between ">
+              <button key={data?._id} onClick={ ()=> updateLeaveRequest({_id:data?._id, status:"approved"})} className=" font-semibold text-blue-400 transition-colors duration-200   hover:text-green-500 focus:outline-none">
+                Accept
+              </button>
+
+              <button  key={data?._id}  onClick={ ()=> updateLeaveRequest({_id:data?._id, status:"rejected"})} className="font-semibold text-red-400 transition-colors duration-200  hover:text-red-600 focus:outline-none">
+                Reject
+              </button>
+            </div>
+                      </div>
+                    </div>
+      </>
     );
   }
 };
