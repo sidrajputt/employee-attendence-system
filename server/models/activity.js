@@ -1,37 +1,39 @@
 const mongoose = require('mongoose');
 
-const ActivitySchema = new mongoose.Schema({
-    activityName: {
-        type: String,
-        enum: ["startWork", "break", "leaveRequest"],
-        required: true,
+const activitySchema = new mongoose.Schema({
+  employee: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Employee",
+    required: true,
+},
+  activityType: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point',
     },
-    latitude: {
-        type: String,
-        required: function () {
-            this.activityName === "startWork"
-        }
+    coordinates: {
+      type: [Number],
+      required: true,
     },
-    longitude: {
-        type: String,
-        required: function () {
-            this.activityName === "startWork"
-        }
-    },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Employee",
-        required: true,
-    },
-    createdAt: {
-        type: Number,
-        required: true,
-        default: Date.now(),
-    },
+  },
 }, {
-    timestamps: true, // This will add created_at and updated_at fields
+    timestamps: true, 
   });
 
-const Activity = mongoose.model('Activity', ActivitySchema);
+// Index for geospatial queries based on location coordinates
+activitySchema.index({ location: '2dsphere' });
+
+const Activity = mongoose.model('Activity', activitySchema);
 
 module.exports = Activity;
+
+

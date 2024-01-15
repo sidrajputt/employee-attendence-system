@@ -1,60 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom"
-
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchActivityData } from "../../../../redux-toolkit/slice/activitySlice";
+import { formattedDate } from "../../../../utils/formatDate";
 export const ActivityLog = () => {
-  return (
-    <>
-      <div className="">
-        <div >
-          <div class="mx-auto w-full ">
-            <div class="flex flex-col items-center justify-between gap-4 rounded-lg p-4 sm:flex-row md:p-8">
-              <div>
-                <h2 class="text-xl font-bold text-indigo-500 md:text-2xl">
-                  Employee Activity Logs
-                </h2>
-                <p class="text-gray-600">Realtime Activity for employee</p>
-              </div>
+  const activityData = useSelector((state) => state.activity.data.data);
+  const dispatch = useDispatch();
 
-              <button
-                href="#"
-                class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base"
-              >
-       Refresh
-              </button>
-            </div>
-          </div>
-          <div class="overflow-x-auto   px-5">
-  <table class="min-w-full divide-y-2 divide-gray-200 bg-gray-50 rounded-xl text-sm">
-    <thead class=" ">
-      <tr>
-        <th class="whitespace-nowrap px-4 py-2 w-24  font-medium text-md  text-indigo-500 ">Emp Id </th>
-        <th class="whitespace-nowrap px-4 py-2 w-52 font-medium text-md  text-indigo-500 ">Name of Employee</th>
-        <th class="whitespace-nowrap px-4 py-2 w-64 font-medium text-md  text-indigo-500 ">Time</th>
-        <th class="whitespace-nowrap px-4 py-2  w-full font-medium text-md  text-indigo-500 ">Activity</th>
-      </tr>
-    </thead>
+  useEffect(() => {
+    dispatch(fetchActivityData());
+  }, [dispatch]);
 
-    <tbody class="divide-y divide-gray-200">
- 
-      {SingleLog()}
-      {SingleLog()}
-      {SingleLog()}
-    </tbody>
-  </table>
-</div>
-        
+  const handleViewLocation = (coordinates) => {
+    const [latitude, longitude] = coordinates;
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    window.open(googleMapsUrl, '_blank');
+  };
+
+  const renderActivityCard = (data) => (
+    <div
+      key={data?._id}
+      className="bg-white p-4 rounded-lg shadow-md mb-4 flex flex-col gap-2"
+    >
+      <div className="flex justify-between">
+        <div>
+          <h2 className="text-xl font-bold text-indigo-500">
+            {data?.employee?.firstName} {data?.employee?.lastName}
+          </h2>
+          {/* <p className="text-gray-600">{data?.employee?.employeeId}</p> */}
+          <p className="text-gray-600 text-sm">{data?.activityType}</p>
         </div>
+        <button
+          className="bg-indigo-500 text-white px-3 h-8 text-sm py-1 rounded-md"
+          onClick={() => handleViewLocation(data?.location?.coordinates)}
+        >
+          View Location
+        </button>
       </div>
-    </>
+      <div className="flex justify-between space-x-2 items-center">
+        <p className="text-gray-700 text-sm">{formattedDate(data?.createdAt)}</p>
+        <p className="text-gray-700 text-sm">{data?.description}</p>
+      </div>
+    </div>
   );
 
-    function SingleLog() {
-        return <tr>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700 ">1001</td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Suraj Lal Mehta</td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">19:20:20 14 December 2023</td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Login in </td>
-        </tr>;
-    }
+  return (
+    <div className="max-w-screen-lg mx-auto mt-8 p-5">
+      <h2 className="text-2xl font-bold text-indigo-500 mb-4">
+        Employee Activity Logs
+      </h2>
+      <p className="text-gray-600 mb-8">Realtime Activity for employee</p>
+      {activityData?.map((data) => renderActivityCard(data))}
+    </div>
+  );
 };

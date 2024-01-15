@@ -161,7 +161,7 @@ navigate("/");
             </li>
             <li>
               <Link
-             to="/dashboard"
+             to="/dashboard/employee-attendence"
                 className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 "
               >
                 <svg

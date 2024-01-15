@@ -14,7 +14,12 @@ const getActivities = async (req, res) => {
     const limit = pageSize ? Number(pageSize) : defaultPageSize
 
     try {
-        const result = await Activity.find(filter).limit(limit).skip((pageNumber || pageNumber > 0 ? (pageNumber - 1) : 0) * pageSize)
+        const result = await Activity.find(filter).limit(limit).skip((pageNumber || pageNumber > 0 ? (pageNumber - 1) : 0) * pageSize).populate({
+            path: 'employee',
+            model: 'Employee',
+            select: 'employeeId firstName lastName'
+        })
+        .exec();
 
         res.status(200).json({
             success: true,

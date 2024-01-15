@@ -1,32 +1,14 @@
-const Activiy = require('../../models/activity')
+const Activity = require('../../models/activity')
 
-const createdActiviy = async (activityName, createdBy, latitude, longitude) => {
+// Create a new activity
+const createActivity = async (req, res) => {
     try {
-        const createdAt = Date.now()
-
-        const newActiviy = new Activiy({
-            activityName,
-            latitude,
-            longitude,
-            createdBy,
-            createdAt
-        })
-
-        let createdActiviy = await newActiviy.save()
-
-        return {
-            success: true,
-            message: "activity created successfully",
-            createdActiviy
-        }
+      const newActivity = new Activity(req.body);
+      const savedActivity = await newActivity.save();
+      res.status(200).json(savedActivity);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-    catch (err) {
-        console.log(err)
-        return {
-            success: false,
-            message: err.message || "something went wrong while creating activity"
-        }
-    }
-}
+  };
 
-module.exports = { createdActiviy }
+module.exports = { createActivity }

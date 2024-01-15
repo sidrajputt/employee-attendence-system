@@ -18,6 +18,7 @@ import {
 } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import sessionExpiryMiddleware from "../middleware/sessionExpiryMiddleware";
+import activitySlice from "../slice/activitySlice";
 // import facebook reducers
 
 const persistConfig = {
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   employee: employeeSlice,
   app: appSlice,
   leave: leaveSlice,
+  activity:activitySlice
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
