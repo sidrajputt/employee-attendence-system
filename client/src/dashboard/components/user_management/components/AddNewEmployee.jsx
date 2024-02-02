@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { createNewEmployee } from "../../../../redux-toolkit/slice/employeeSlice"
+import { createNewEmployee , fetchEmployeeData} from "../../../../redux-toolkit/slice/employeeSlice"
 
 export const AddNewEmployee = () => {
   const data = useSelector((state) => state);
@@ -39,6 +39,7 @@ export const AddNewEmployee = () => {
 
         console.log("onSubmit", values);
       dispatch(createNewEmployee(values))
+      dispatch(fetchEmployeeData());
       resetForm();
       },
     });
@@ -629,7 +630,7 @@ export const AddNewEmployee = () => {
 
               <p class="text-xs  mt-2 font-semibold text-gray-600">
                 Department:{" "}
-                <span className="pl-2 text-black"> {values.depatment} </span>
+                <span className="pl-2 text-black"> {values.department} </span>
               </p>
 
               <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
@@ -661,7 +662,7 @@ export const AddNewEmployee = () => {
                 Emergency Contact Number:{" "}
                 <span className="pl-2 text-black">
                   {" "}
-                  {values.emg_contact_person}{" "}
+                  {values.emg_contact_number}{" "}
                 </span>
               </p>
 

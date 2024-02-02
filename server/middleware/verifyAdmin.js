@@ -1,20 +1,26 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); 
+const Admin = require('../models/admin'); 
 
 // middleware/verifyLoggedIn.js
 
 
-const verifyLoggedIn = () => {
+const verifyAdmin = () => {
   return async (req, res, next) => {
     try {
-      const token = req.cookies.jwt_token;
+      const token = req.cookies.token;
 
       if (!token) {
         return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decoded.id);
+
+      // Check if the token has expired
+      if (Date.now() >= decoded.exp * 1000) {
+        return res.status(401).json({ success: false, message: 'Unauthorized: Token has expired' });
+      }
+
+      const user = await Admin.findById({ _id: decoded.id });
 
       if (!user) {
         return res.status(401).json({ success: false, message: 'Unauthorized: Invalid user' });
@@ -29,4 +35,4 @@ const verifyLoggedIn = () => {
   };
 };
 
-module.exports = verifyLoggedIn;
+module.exports = {verifyAdmin};

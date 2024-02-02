@@ -1,6 +1,7 @@
 // registrationSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 const initialState = {
@@ -53,8 +54,18 @@ export const updateUserData = createAsyncThunk(
       );
       // console.log(updatedUserData);
       // console.log(response);
+      toast.success(response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
       return response.data;
     } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
       throw error;
     }
   }
@@ -73,8 +84,18 @@ export const fetchUserData = createAsyncThunk(
         }
       );
       // console.log('response.data',response);
+      toast.success(response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
       return response.data;
     } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
       throw error;
     }
   }
@@ -95,10 +116,22 @@ export const loginUser = createAsyncThunk(
           Credential: "include",
         }
       );
-      console.log(userData);
-      console.log(response);
+      // console.log(userData);
+
+      toast.success(response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
+           console.log(response.data);
       return response.data;
+
     } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
       throw error;
     }
   }
@@ -118,10 +151,19 @@ export const logout = createAsyncThunk(
           Credential: "include",
         }
       );
-
-      console.log(response);
+      toast.success(response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
+      // console.log(response);
       return response.data;
     } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        closeButton: true,
+      });
       throw error;
     }
   }

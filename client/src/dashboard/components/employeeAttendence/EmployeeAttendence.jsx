@@ -1,9 +1,26 @@
-import React from 'react'
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
+import { MonthlyCalendar } from "./components/MonthlyCalender";
 export const EmployeeAttendence = () => {
+  const attendanceData = [
+    { date: "2024-01-05" },
+    { date: "2024-01-10" },
+    { date: "2024-01-01" },
+    { date: "2024-01-11" },
+    { date: "2024-01-12" },
+
+    { date: "2024-01-13" },   
+     { date: "2024-01-14" },
+
+  ];
+
+  const markedDays = attendanceData.map((attendance) => {
+    const day = new Date(attendance.date).getDate();
+    return day;
+  });
   return (
-<>
-<div className="px-2 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-6 lg:py-6">
+    <>
+      <div className="px-2 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-6 lg:py-6">
         <div className="grid gap-5 row-gap-8 lg:grid-cols-2">
           <div className="flex flex-col justify-center">
             <div className="max-w-xl ">
@@ -44,14 +61,14 @@ export const EmployeeAttendence = () => {
                         to="/dashboard/user-management"
                         className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
                       >
-                        Leave Management
+                        Attendence Management
                       </Link>
                     </li>
                   </ol>
                 </nav>
               </div>
               <h2 className="max-w-lg mb-2 mt-6  font-sans text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl sm:leading-none">
-                Leave Management
+              Attendence Management
               </h2>
               <p className="text-sm text-gray-700 md:text-base">
                 You can accept or reject employee leave request
@@ -59,8 +76,8 @@ export const EmployeeAttendence = () => {
             </div>
           </div>
         </div>
+        <MonthlyCalendar month="January" markedDays={markedDays} />;
       </div>
-
-</>
-  )
-}
+    </>
+  );
+};

@@ -7,14 +7,19 @@ import {
   fetchEmployeeData,
   deleteEmployeeData,
 } from "../../../redux-toolkit/slice/employeeSlice";
+ 
+import { EditEmployeeDetail } from './components/EditEmployeeDetail'
 
 export const UserManagement = () => {
   const dispatch = useDispatch();
   const EmployeeData = useSelector((state) => state.employee?.data?.data);
 
   useEffect(() => {
-    dispatch(fetchEmployeeData());
-  }, [dispatch]);
+    if(!EmployeeData){
+      dispatch(fetchEmployeeData());
+    }
+    
+  }, [dispatch, EmployeeData]);
 
 
   return (
@@ -189,8 +194,8 @@ export const UserManagement = () => {
     };
     return (
       <div className="">
-        <div class="flex max-w-md absolute  w-full overflow-hidden bg-white rounded-lg shadow-lg">
-          <div class=" p-4 w-full  bg-lightColor">
+        <div class="flex max-w-md absolute  w-full overflow-hidden bg-white rounded-lg shadow-xl">
+          <div class=" p-4 w-full  bg-white">
             <div className="flex justify-between">
               <h1 class="text-md  text-center p-2  font-bold text-gray-900">
                 Employee Detail
@@ -202,14 +207,12 @@ export const UserManagement = () => {
                 Close
               </button>
             </div>
-            <p class="text-xs capitalize mt-2 font-semibold text-gray-600">
+            <p class="text-xs capitalize mt-2 font-semibold text-gray-600 ">
               Employee ID:{" "}
               <span className="pl-2 text-black"> {values.employeeId} </span>
             </p>
 
-            <p class="text-xs  mt-2 font-semibold text-gray-600">
-              Password: <span className="pl-2 text-black"> {values._id} </span>
-            </p>
+    
             <p class="text-xs  mt-2 font-semibold text-gray-600">
               FirstName:{" "}
               <span className="pl-2 text-black"> {values.firstName} </span>
@@ -312,7 +315,7 @@ export const UserManagement = () => {
 
   function EmployeeDataRow({ employee }) {
     const [view, setView] = useState(false);
-
+   const [edit, setEdit ]= useState(false);
     const handleDelete = async () => {
       const data = { id: employee?._id };
       console.log("delete call", data);
@@ -328,6 +331,13 @@ export const UserManagement = () => {
             <ViewEmployeeData values={employee} setView={setView} />
           </div>
         ) : null}
+         {edit ? (
+          <div className="absolute top-20 right-0 w-full " key={employee?._id}>
+            <EditEmployeeDetail empData={employee} setEdit={setEdit} />
+    
+          </div>
+        ) : null}
+          
         <div className="inline-block  min-w-full py-2 align-middle ">
           <div className="overflow-hidden border border-gray-200  ">
             <div className="min-w-full divide-y divide-gray-200 ">
@@ -368,7 +378,7 @@ export const UserManagement = () => {
                 {employee.workLocation}
                 </div> */}
 
-                  <div className="px-2 py-3.5 relative  text-sm font-normal text-center w-24 text-black">
+                  <div className="px-2 py-3.5   text-sm font-normal text-center w-24 text-black">
                     <div
                       key={employee?._id}
                       className="flex items-center gap-x-2"
@@ -411,7 +421,7 @@ export const UserManagement = () => {
                       </button>
 
                       {/* Edit */}
-                      <button className="text-black divansition-colors duration-200  hover:text-gray-500 focus:outline-none">
+                      <button               onClick={() => setEdit(!edit)}className="text-black divansition-colors duration-200  hover:text-gray-500 focus:outline-none">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

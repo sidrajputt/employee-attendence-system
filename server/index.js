@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const dotenv = require('dotenv');
 const bodyparser = require("body-parser");
 const morgan = require('morgan');
@@ -8,14 +9,14 @@ dotenv.config();
 
 const connectdb = require('./database/database');
 app.use(cookieParser())
-
+// app.use(cors());
 //middleware
 app.use(morgan("dev"))
 app.use(express.json());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Change this to your frontend's actual URL
+	 res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); 
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 	res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (e.g., cookies) to be included in the request
@@ -25,11 +26,13 @@ app.use((req, res, next) => {
 const adminRoutes = require("./routes/admin")
 const employeeRoutes = require("./routes/employee")
 const activityRoutes = require("./routes/activity")
+const attendanceRoutes = require("./routes/attendance")
 const otherRoutes = require("./routes/others")
 
 app.use("/api/admin", adminRoutes)
 app.use("/api/employee", employeeRoutes) 
 app.use("/api/activity", activityRoutes)
+app.use("/api/attendance", attendanceRoutes)
 app.use("/api", otherRoutes)
 
 const notfoundmiddleware = (req, res, next) => {

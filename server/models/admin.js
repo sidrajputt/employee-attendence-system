@@ -18,7 +18,7 @@ const AdminSchema = new mongoose.Schema({
         type: String,
     },
     phone: {
-        type: Number,
+        type:Number,
         required: true,
         unique: true,
     },
@@ -27,10 +27,13 @@ const AdminSchema = new mongoose.Schema({
         required: true,
     },
     forgotPasswordToken: String,
-    forgotPasswordTokenExpiry: Number
+    forgotPasswordTokenExpiry: {
+        type: Number,
+        default: null,
+    }
 }, {
-    timestamps: true, // This will add created_at and updated_at fields
-  });
+    timestamps: true,
+});
 
 const Admin = mongoose.model('Admin', AdminSchema);
 

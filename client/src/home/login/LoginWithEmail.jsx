@@ -4,13 +4,14 @@ import loginImg from "../../assets/login.png";
 import { useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux-toolkit/slice/authSlice";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const LoginWithEmail = () => {
 const dispatch = useDispatch();
 const navigate = useNavigate();
 const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
-const state = useSelector((state) => state)
-console.log(state);
+// const state = useSelector((state) => state)
+// console.log(state);
 const [email, setEmail ] = useState("");
 const [password, setPassword]=useState("");
 
@@ -30,7 +31,7 @@ setPassword("");
 }
 const handleSubmit= (e) => {
   e.preventDefault();
-  console.log("onSumbit:" ,userdata)
+  // console.log("onSumbit:" ,userdata)
   dispatch(loginUser(userdata))
   clearState();
   navigate('/dashboard');
@@ -42,6 +43,7 @@ const handleSubmit= (e) => {
       <div
         className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl "
       >
+               <ToastContainer />
         <div className="flex flex-col overflow-y-auto md:flex-row">
           <div className="h-32 md:h-auto md:w-1/2">
             <img
@@ -52,6 +54,7 @@ const handleSubmit= (e) => {
             />
    
           </div>
+   
           <form  onSubmit={handleSubmit} className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <h1

@@ -5,63 +5,85 @@ const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   try {
     const { email, phone, password } = req.body;
-    console.log(req.body);
-    var searchedAdmin;
-    //search for the admin
-    if (email) {
-     searchedAdmin = await Admin.findOne({ email });
-    }
-    if (phone) {
-    searchedAdmin = await Admin.findOne({ phone });
-    }
-    // if not found
-    if (!searchedAdmin) {
-      return res.status(404).json({
+console.log(req.body);
+    // Input validation
+    if (!email && !phone) {
+      return res.status(400).json({
         success: false,
-        message: "admin doesn't exist",
+        message: "Missing required fields",
       });
     }
 
-    //if password is correct
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        message: "Password required fields",
+      });
+    }
+
+    // Search for the admin
+    let searchedAdmin;
+    if (email) {
+      searchedAdmin = await Admin.findOne({ email });
+    } 
+     if (phone) {
+      searchedAdmin = await Admin.findOne({ phone });
+    }
+    console.log(searchedAdmin)
+
+    // If admin not found
+    if (!searchedAdmin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin doesn't exist",
+      });
+    }
+
+    // If password is correct
     const isRightPassword = await bcryptjs.compare(
       password,
       searchedAdmin.password
     );
 
     if (!isRightPassword) {
-      return res.json({
+      return res.status(400).json({
         success: false,
         message: "Invalid password",
       });
     }
 
-    const payload = {
-      id: searchedAdmin._id,
-    };
 
-    const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
-      expiresIn: "1d",
-    });
+          //generate a token for user and send it
+          const token = jwt.sign(
+            { id: searchedAdmin._id, },
+            process.env.JWT_SECRET, //secret
+            {
+              expiresIn: "1d",
+            }
+          );
+
+
+    
 
     searchedAdmin.password = undefined;
 
     res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      expires: new Date(Date.now() + 3600000),
+        httpOnly: true,
+        withCredentials: true,
     });
 
-    return res
-      .json({
-        success: true,
-        message: "Login successful",
-        admin: searchedAdmin,
-      })
-      .status(200);
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      admin: searchedAdmin,
+    });
   } catch (error) {
-    console.log(error);
-    return res.json({
+    console.error("Login error:", error);
+    return res.status(500).json({
       success: false,
-      message: error.message || "Something went wrong",
+      message: "Something went wrong",
+ 
     });
   }
 };
