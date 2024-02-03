@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../slice/authSlice";
 import storage from "redux-persist/lib/storage";
 
-import storeSlice from "../slice/storeSlice";
+
 import employeeSlice from "../slice/employeeSlice";
 import appSlice from "../slice/appSlice";
 import leaveSlice from "../slice/leaveSlice";

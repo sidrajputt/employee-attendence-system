@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+// import './MonthlyCalendar.css'; // Import or define your CSS file
 
-export const MonthlyCalendar = ({ month, markedDays }) => {
+export const MonthlyCalendar = ({ month, markedDays, absentDays, holidays }) => {
   const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
   const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay();
 
@@ -16,9 +17,21 @@ export const MonthlyCalendar = ({ month, markedDays }) => {
         if ((i === 0 && j < firstDayOfMonth) || dayCount > daysInMonth) {
           row.push(<td key={`${i}-${j}`}></td>);
         } else {
-          const isMarked = markedDays && markedDays?.includes(dayCount);
+          const isPresent = markedDays && markedDays.includes(dayCount);
+          const isAbsent = absentDays && absentDays.includes(dayCount);
+          const isHoliday = holidays && holidays.includes(dayCount);
+
+          let className = '';
+          if (isPresent) {
+            className = 'bg-green-400';
+          } else if (isAbsent) {
+            className = 'bg-red-300';
+          } else if (isHoliday) {
+            className = 'bg-blue-100';
+          }
+
           row.push(
-            <td key={`${i}-${j}`} className={isMarked ? 'marked-day' : ''}>
+            <td key={`${i}-${j}`} className={className}>
               {dayCount}
             </td>
           );
@@ -33,7 +46,7 @@ export const MonthlyCalendar = ({ month, markedDays }) => {
 
   return (
     <div>
-      <h2>{month} Calendar</h2>
+      {/* <h2>{month} Calendar</h2> */}
       <table>
         <thead>
           <tr>
