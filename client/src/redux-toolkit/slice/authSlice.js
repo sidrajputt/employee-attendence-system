@@ -19,7 +19,7 @@ export const loginUser = createAsyncThunk(
   async (userData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/admin/login`,
+        `http://13.201.2.25:8000/api/admin/login`,
         userData,
         {
           headers: {
@@ -54,7 +54,7 @@ export const logout = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/admin/logout`,
+        `http://13.201.2.25:8000/api/admin/logout`,
         
         {
           headers: {

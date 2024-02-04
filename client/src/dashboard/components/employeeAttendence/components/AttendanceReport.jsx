@@ -16,7 +16,7 @@ export const AttendanceReport = ({employee, setVeiwReport}) => {
       };
       try {
         const response = await axios.post(
-          `http://localhost:8000/api/attendance/attendance-report`,
+          `http://13.201.2.25:8000/api/attendance/attendance-report`,
           data,
           {
             headers: {

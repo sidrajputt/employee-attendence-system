@@ -14,7 +14,7 @@ export const createNewEmployee = createAsyncThunk(
   async (employeeData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/employee/createEmployee`,
+        `http://13.201.2.25:8000/api/employee/createEmployee`,
         employeeData,
         {
           headers: {
@@ -46,7 +46,7 @@ export const updateEmployeeData = createAsyncThunk(
   async (updatedEmployeeData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/Employee/update`,
+        `http://13.201.2.25:8000/api/v1/Employee/update`,
         updatedEmployeeData,
         {
           headers: {
@@ -78,7 +78,7 @@ export const fetchEmployeeData = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/employee/allEmployeeData`,
+        `http://13.201.2.25:8000/api/employee/allEmployeeData`,
         {
           withCredentials: true,
           Credential: "include",
@@ -106,7 +106,7 @@ export const deleteEmployeeData = createAsyncThunk(
   async (data) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/employee/deleteEmployee`,
+        `http://13.201.2.25:8000/api/employee/deleteEmployee`,
         data,
         {
           withCredentials: true,
@@ -139,7 +139,7 @@ export const loginEmployee = createAsyncThunk(
   async (EmployeeData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/admin/login`,
+        `http://13.201.2.25:8000/api/admin/login`,
         EmployeeData,
         {
           headers: {
@@ -162,7 +162,7 @@ export const logout = createAsyncThunk(
   async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/admin/logout`,
+        `http://13.201.2.25:8000/api/admin/logout`,
         
         {
           headers: {

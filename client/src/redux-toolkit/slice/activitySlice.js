@@ -14,7 +14,7 @@ export const createNewActivity = createAsyncThunk(
   async (activityData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/activity/create-activities`,
+        `http://13.201.2.25:8000/api/activity/create-activities`,
         activityData,
         {
           headers: {
@@ -46,7 +46,7 @@ export const updateActivityData = createAsyncThunk(
   async (updatedActivityData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/Activity/update`,
+        `http://13.201.2.25:8000/api/v1/Activity/update`,
         updatedActivityData,
         {
           headers: {
@@ -78,7 +78,7 @@ export const fetchActivityData = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/activity/activities`,
+        `http://13.201.2.25:8000/api/activity/activities`,
         {
           withCredentials: true,
           Credential: "include",
@@ -106,7 +106,7 @@ export const deleteActivityData = createAsyncThunk(
   async (data) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/activity/deleteActivity`,
+        `http://13.201.2.25:8000/api/activity/deleteActivity`,
         data,
         {
           withCredentials: true,

@@ -14,7 +14,7 @@ export const createNewleave = createAsyncThunk(
   async (leaveData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/leave/createleave`,
+        `http://13.201.2.25:8000/api/leave/createleave`,
         leaveData,
         {
           headers: {
@@ -47,7 +47,7 @@ export const updateleaveData = createAsyncThunk(
   async (updatedleaveData) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/updateLeaveRequest`,
+        `http://13.201.2.25:8000/api/updateLeaveRequest`,
         updatedleaveData,
         {
           headers: {
@@ -79,7 +79,7 @@ export const fetchleaveData = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/leaveRequests`,
+        `http://13.201.2.25:8000/api/leaveRequests`,
         {
           withCredentials: true,
           Credential: "include",
@@ -107,7 +107,7 @@ export const deleteleaveData = createAsyncThunk(
   async (data) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/leave/deleteleave`,
+        `http://13.201.2.25:8000/api/leave/deleteleave`,
         data,
         {
           withCredentials: true,
@@ -138,7 +138,7 @@ export const logout = createAsyncThunk(
   async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/admin/logout`,
+        `http://13.201.2.25:8000/api/admin/logout`,
         {
           headers: {
             "Content-Type": "application/json",

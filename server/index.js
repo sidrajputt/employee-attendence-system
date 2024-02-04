@@ -9,7 +9,7 @@ dotenv.config();
 
 const connectdb = require('./database/database');
 app.use(cookieParser())
-
+// app.use(cors)
 //middleware
 app.use(morgan("dev"))
 app.use(express.json());
@@ -17,13 +17,8 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-	const allowedOrigins = ['http://localhost:4000']; // Add your frontend origin(s)
-	const origin = req.headers.origin;
-  
-	if (allowedOrigins.includes(origin)) {
-	  res.setHeader('Access-Control-Allow-Origin', origin);
-	}
-  
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.header('Access-Control-Allow-Headers', 'Content-Type');
 	res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
