@@ -33,15 +33,23 @@ export const SideBar = ({ children }) => {
     dispatch(logout());
     navigate("/");
   };
+
+  const toggleViewMenu =  () =>{
+    setViewMenu(!viewMenu)
+  }
+ const openViewMenu = "fixed top-20  h-screen w-full flex-col justify-between border-r bg-white px-6 pb-3 transition duration-300   md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[18%]  "
+ const closeViewMenu = `fixed  z-10 ml-[-100%] flex h-screen w-full flex-col justify-between border-r bg-white px-6 pb-3 transition duration-300   md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[18%] `
+
+console.log(viewMenu)
   return (
     <>
-     {/* <aside className={`lg:hidden fixed top-0 z-10 h-screen w-full ${viewMenu ? 'ml-0' : '-ml-full'} transition-transform duration-300 bg-white overflow-y-auto`}> */}
-      <aside className={`fixed top-0 z-10  ml-[-100%]  ${viewMenu ? 'ml-0' : '-ml-full'} flex h-screen w-full flex-col justify-between border-r bg-white px-6 pb-3 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[18%] `}>
+  
+      <aside className={  viewMenu? openViewMenu: closeViewMenu }>
         <div>
-          <div className="mt-10 sm:mt-0 flex  justify-between   py-2">
+          <div className="sm:mt-0 flex  justify-between   py-2">
             <img className="rounded-xl h-14  sm:m-auto" src={logo} alt=" logo" />
             {viewMenu ? <button
-              onClick={() => setViewMenu(!viewMenu)}
+              onClick={ toggleViewMenu}
               className="sm:hidden  text-white h-8 py-1 px-3 my-auto rounded-xl text-sm  font-semibold bg-red-500"
             >
              Close
@@ -52,7 +60,7 @@ export const SideBar = ({ children }) => {
           <div className=" text-center flex">
             <div className="text-start m-auto   ">
               <h5 className="hidden  text-lg font-semibold text-gray-600 lg:block ">
-                {admin?.firstName} {admin?.lastName}
+                {admin?.firstName} {admin?.lastName}{viewMenu}
               </h5>
               <span className="hidden text-sm text-gray-400 lg:block">
                 Admin
@@ -80,7 +88,7 @@ export const SideBar = ({ children }) => {
                     className="fill-current group-hover:text-sky-300"
                   ></path>
                 </svg>
-                <span className="group-hover:text-gray-700 ">Dashboard</span>
+                <span className="group-hover:text-gray-700 ">Dashboard  {viewMenu}</span>
               </Link>
             </li>
             <li>
@@ -244,10 +252,10 @@ export const SideBar = ({ children }) => {
         <div className="sticky top-0 h-16 border-b bg-white  lg:py-2.5">
           <div className="flex items-center justify-between space-x-4 px-6 2xl:container">
             <h5 hidden className="text-2xl font-medium text-gray-600 lg:block ">
-              Dashboard
+              Dashboard {viewMenu}
             </h5>
             <button
-              onClick={() => setViewMenu(!viewMenu)}
+              onClick={() => toggleViewMenu()}
               className="-mr-2 h-16 w-12 border-r lg:hidden  "
             >
               <svg
@@ -267,6 +275,7 @@ export const SideBar = ({ children }) => {
             </button>
           </div>
         </div>
+ 
         {children}
       </div>
     </>

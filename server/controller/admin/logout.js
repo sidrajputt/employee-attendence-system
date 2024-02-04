@@ -3,7 +3,7 @@ const logout = (req, res) => {
         res.cookie("token", "", { httpOnly: true, maxAge: 0 })
         return res.json({
             success: true,
-            message: "logout successful"
+            message: "Logout successful"
         })
     }
 

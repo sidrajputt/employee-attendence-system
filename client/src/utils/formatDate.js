@@ -16,7 +16,7 @@ export const formattedDate =(dateString)=>{
     };
     
     const formattedDate = date.toLocaleString('en-IN', options);
-    console.log(formattedDate);
+    // console.log(formattedDate);
     return formattedDate;
  
 }
@@ -37,7 +37,7 @@ export const formattedDateOnly =(dateString)=>{
   
 
   const formattedDate = date.toLocaleString('en-IN', options);
-  console.log(formattedDate);
+  // console.log(formattedDate);
   return formattedDate;
 
 }

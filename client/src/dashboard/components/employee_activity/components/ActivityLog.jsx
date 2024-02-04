@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchActivityData } from "../../../../redux-toolkit/slice/activitySlice";
 import { formattedDate } from "../../../../utils/formatDate";
 export const ActivityLog = () => {
-  const activityData = useSelector((state) => state.activity.data.data);
+  const activityData = useSelector((state) => state?.activity?.data?.data);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -23,7 +23,7 @@ const getActivities = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: 'Search successful',
+            message: 'Activity fetched successfully',
             data: result,
         })
     }

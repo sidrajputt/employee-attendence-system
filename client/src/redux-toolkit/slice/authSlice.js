@@ -53,7 +53,7 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         `http://localhost:8000/api/admin/logout`,
         
         {

@@ -27,7 +27,7 @@ export const HolidayForm = () => {
     >
       Create Holiday
     </button>
-{showHoliday ?   <div className="max-w-4xl w-[450px] absolute bg-green-100  mx-auto my-auto z-10 rounded-2xl overflow-hidden shadow-md p-6 m-4 mb-6">
+{showHoliday ?   <div className=" w-[450px] absolute left-0 right-0  top-20 bg-green-100  mx-auto my-auto z-10 rounded-2xl  shadow-md p-6 m-4 mb-6">
       <div className='flex justify-between w-full '>
     <h2 className="text-2xl font-semibold mb-4">Mark Holiday</h2>
     <button
